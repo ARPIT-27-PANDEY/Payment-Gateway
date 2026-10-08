@@ -1,314 +1,562 @@
-# 💳 Stripe Payment Gateway
+# 🛒 E-Commerce Website with Stripe Payment Gateway
 
-A frontend web application built with **React and Vite** that demonstrates the integration of a **Stripe payment gateway** into a modern web interface.
+A full-stack **e-commerce website with an integrated Stripe payment gateway**, designed to provide an end-to-end shopping and transaction workflow.
 
-The project focuses on connecting a web-based payment flow with Stripe while keeping the frontend lightweight and component-oriented. It uses **React** for the user interface, **Axios** for HTTP communication, and **Vite** for fast development and production builds.
+The application allows users to browse and filter products, add products to a shopping cart, proceed through checkout, and complete online payments through **Stripe Gateway**. The backend is developed using **Express.js**, while **MongoDB** is used to persist customer details, product information, cart data, and order history.
 
 ---
 
 ## 📌 Overview
 
-Online payment processing requires a secure communication layer between a customer-facing application and a payment provider.
+The project was developed as a complete e-commerce application, with the **payment gateway implemented as an integral part of the checkout process**.
 
-This project explores the integration of **Stripe** into a React-based application to create a payment-oriented web workflow.
-
-### High-Level Flow
+The major components are:
 
 ```text
-┌─────────────────────┐
-│     User / Customer │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│   React Frontend    │
-│                     │
-│  Payment Interface  │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│ HTTP Communication  │
-│       Axios         │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│   Stripe Payment    │
-│      Gateway        │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│ Payment Result /    │
-│ Transaction Status  │
-└─────────────────────┘
+Product Browsing
+       │
+       ▼
+Product Filtering
+       │
+       ▼
+Shopping Cart
+       │
+       ▼
+Checkout
+       │
+       ▼
+Express.js Backend
+       │
+       ├───────────────┐
+       │               │
+       ▼               ▼
+    MongoDB          Stripe
+       │               │
+       │         Payment Processing
+       │               │
+       └───────┬───────┘
+               ▼
+         Order Completion
 ```
 
-The application is structured as a modern React project using Vite as the development and build tool.
+The project therefore combines:
+
+- **Frontend e-commerce functionality**
+- **Backend API development**
+- **Payment gateway integration**
+- **Database management**
+- **Order and transaction processing**
 
 ---
 
-## ✨ Features
+# 🎯 Objectives
 
-- 💳 **Stripe payment gateway integration**
-- ⚛️ React-based frontend
-- ⚡ Vite-powered development environment
-- 🌐 HTTP communication using Axios
-- 📦 Modular JavaScript application structure
-- 🔧 ESLint-based code quality checks
-- 🚀 Production build support through Vite
+The primary objectives of the project are:
 
-The repository currently uses React 18, Axios 1.7.x, and Vite 5.x according to its package configuration.
+- Build a functional e-commerce frontend.
+- Implement product browsing and filtering.
+- Provide shopping cart functionality.
+- Implement a complete checkout workflow.
+- Develop backend APIs for cart and transaction handling.
+- Integrate **Stripe Gateway** for online payment processing.
+- Store customer and product information in MongoDB.
+- Maintain order history for completed transactions.
+- Connect the frontend, backend, database, and payment gateway into one workflow.
 
 ---
 
-## 🏗️ Architecture
+# ✨ Features
 
-The project follows a frontend-centric architecture:
+## 🛍️ E-Commerce Features
+
+- Product listing
+- Product filtering
+- Product selection
+- Shopping cart
+- Add/remove products from cart
+- Cart management
+- Checkout workflow
+- Order processing
+
+## 💳 Payment Gateway Features
+
+- Stripe payment gateway integration
+- Payment initiation from checkout
+- Backend transaction handling
+- Payment status handling
+- Integration of payment processing with order creation
+- Secure payment workflow through Stripe
+
+## ⚙️ Backend Features
+
+- Express.js REST APIs
+- Cart handling APIs
+- Transaction-related APIs
+- Customer data management
+- Product data management
+- Order history management
+- Communication between frontend, Stripe, and MongoDB
+
+## 🗄️ Database Features
+
+MongoDB is used to store:
+
+- Customer details
+- Product information
+- Cart-related data
+- Order history
+- Transaction-related information
+
+---
+
+# 🏗️ System Architecture
+
+The project follows a full-stack architecture in which the frontend communicates with an Express.js backend, while the backend coordinates database operations and payment processing.
 
 ```text
-                    ┌───────────────────┐
-                    │       User        │
-                    └─────────┬─────────┘
-                              │
-                              ▼
-                    ┌───────────────────┐
-                    │   React UI Layer  │
-                    │                   │
-                    │ Payment Interface │
-                    └─────────┬─────────┘
-                              │
-                              ▼
-                    ┌───────────────────┐
-                    │   Axios / HTTP    │
-                    │    Requests       │
-                    └─────────┬─────────┘
-                              │
-                              ▼
-                    ┌───────────────────┐
-                    │      Stripe       │
-                    │ Payment Gateway   │
-                    └─────────┬─────────┘
-                              │
-                              ▼
-                    ┌───────────────────┐
-                    │ Payment Response  │
-                    │ / Status Handling │
-                    └───────────────────┘
+                         ┌─────────────────┐
+                         │      User       │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                    ┌─────────────────────────┐
+                    │     E-Commerce          │
+                    │       Frontend          │
+                    │                         │
+                    │  • Products             │
+                    │  • Filtering            │
+                    │  • Cart                 │
+                    │  • Checkout             │
+                    └────────────┬────────────┘
+                                 │
+                                 │ API Requests
+                                 ▼
+                    ┌─────────────────────────┐
+                    │      Express.js         │
+                    │        Backend          │
+                    │                         │
+                    │  • Cart Handling        │
+                    │  • Transactions         │
+                    │  • Order Processing     │
+                    └────────────┬────────────┘
+                                 │
+                       ┌─────────┴─────────┐
+                       │                   │
+                       ▼                   ▼
+              ┌────────────────┐   ┌────────────────┐
+              │    MongoDB     │   │     Stripe     │
+              │                │   │    Gateway     │
+              │ • Customers    │   │                │
+              │ • Products     │   │ • Payments     │
+              │ • Orders       │   │ • Transactions │
+              │ • Cart Data    │   │ • Status       │
+              └────────────────┘   └────────────────┘
 ```
 
-The repository is configured with the standard Vite React plugin, making Vite responsible for development, bundling, and production builds.
+---
+
+# 🛒 E-Commerce Workflow
+
+The application follows a standard online shopping workflow.
+
+## 1. Product Browsing
+
+Users can browse the products available on the platform.
+
+```text
+               Product Catalog
+                     │
+                     ▼
+              Product Listing
+                     │
+                     ▼
+               Product Filter
+                     │
+                     ▼
+               Select Product
+```
+
+Product filtering makes it easier for users to find relevant products.
 
 ---
 
-# 🧰 Technology Stack
+## 2. Add to Cart
 
-## Frontend
+Users can add selected products to their shopping cart.
 
-| Technology | Purpose |
-|---|---|
-| **React** | Component-based user interface |
-| **React DOM** | Rendering React components |
-| **Vite** | Development server and build tool |
-| **Axios** | HTTP/API communication |
-| **JavaScript (ES Modules)** | Application logic |
-| **ESLint** | Code quality and linting |
+```text
+Product
+   │
+   ▼
+Add to Cart
+   │
+   ▼
+Shopping Cart
+   │
+   ├── Update Quantity
+   ├── Remove Product
+   └── Review Cart
+```
 
-The dependency versions are defined in the project's `package.json`.
+Cart operations are handled through backend APIs.
 
 ---
 
-# 💳 Stripe Integration
+## 3. Checkout
 
-Stripe is used as the external payment gateway for handling the payment workflow.
+After reviewing the cart, the customer proceeds to checkout.
 
-The intended payment interaction can be represented as:
+```text
+Shopping Cart
+      │
+      ▼
+   Checkout
+      │
+      ▼
+Order Information
+      │
+      ▼
+Payment Initiation
+```
+
+---
+
+# 💳 Stripe Payment Gateway
+
+The payment gateway is a core component of the e-commerce checkout workflow.
+
+Instead of handling card/payment processing directly within the application, the system integrates **Stripe** to process online transactions.
+
+The payment flow is:
+
+```text
+                   Customer
+                       │
+                       ▼
+                  Shopping Cart
+                       │
+                       ▼
+                    Checkout
+                       │
+                       ▼
+                Express.js API
+                       │
+                       ▼
+               Stripe Gateway
+                       │
+              ┌────────┴────────┐
+              │                 │
+              ▼                 ▼
+        Payment Success    Payment Failure
+              │                 │
+              ▼                 ▼
+        Create/Complete      Handle Error
+             Order
+              │
+              ▼
+           MongoDB
+```
+
+This integration allows the payment process to remain connected with the application's order workflow.
+
+---
+
+# 🔄 Payment Transaction Flow
+
+The complete transaction lifecycle can be represented as:
+
+```text
+┌──────────────────────┐
+│   User Adds Product  │
+│      to Cart         │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│       Checkout       │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│  Frontend Sends      │
+│ Payment Request      │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│     Express.js       │
+│       Backend        │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Stripe Gateway     │
+│                      │
+│ Payment Processing   │
+└──────────┬───────────┘
+           │
+      ┌────┴─────┐
+      │          │
+      ▼          ▼
+   Success     Failure
+      │          │
+      ▼          ▼
+Create Order   Error Response
+      │
+      ▼
+┌──────────────────────┐
+│       MongoDB        │
+│                      │
+│ Store Order Details  │
+└──────────────────────┘
+```
+
+---
+
+# ⚙️ Backend API Layer
+
+The backend is built using **Express.js** and acts as the communication layer between the frontend, database, and Stripe.
+
+The backend is responsible for operations such as:
+
+### Cart Handling
+
+- Adding products to the cart
+- Updating cart information
+- Removing products
+- Retrieving cart contents
+
+### Transaction Handling
+
+- Receiving checkout/payment requests
+- Processing payment-related operations
+- Communicating with Stripe
+- Handling payment responses
+- Maintaining transaction state
+
+### Order Handling
+
+- Creating order records
+- Associating orders with customers
+- Storing purchased products
+- Maintaining order history
+
+The architecture can be viewed as:
+
+```text
+Frontend
+   │
+   │ HTTP Request
+   ▼
+Express.js API
+   │
+   ├───────────────► MongoDB
+   │
+   └───────────────► Stripe
+```
+
+---
+
+# 🗄️ MongoDB Database
+
+MongoDB is used as the application's persistent database.
+
+The database stores information necessary for smooth e-commerce operations.
+
+## Customer Details
+
+Stores information associated with customers.
 
 ```text
 Customer
-   │
-   ▼
-Payment Page
-   │
-   ▼
-Enter / Select Payment Details
-   │
-   ▼
-Stripe Payment Flow
-   │
-   ├───────────────┐
-   │               │
-   ▼               ▼
-Success           Failure
-   │               │
-   ▼               ▼
-Payment Status   Error Handling
+├── Customer ID
+├── Name
+├── Contact Information
+└── Other Customer Details
 ```
 
-The frontend is responsible for providing the customer-facing payment experience and communicating with the relevant payment flow.
+## Product Information
 
-> **Security Note:** Stripe secret keys must never be exposed in frontend source code. Any operation requiring a Stripe secret key should be performed on a trusted server-side environment.
+Stores product-related information.
+
+```text
+Product
+├── Product ID
+├── Product Name
+├── Price
+├── Category
+└── Other Product Information
+```
+
+## Order History
+
+Completed and processed orders can be stored for future retrieval.
+
+```text
+Order
+├── Order ID
+├── Customer
+├── Products
+├── Amount
+├── Payment Status
+└── Order Information
+```
+
+This provides persistent storage for the e-commerce application and allows the system to maintain customer and transaction history.
 
 ---
 
-# 🔄 Payment Workflow
+# 🔗 Frontend–Backend–Stripe Integration
 
-A typical flow for the application is:
-
-### 1. Customer Opens the Application
-
-The React application is loaded through the Vite development server.
+One of the major aspects of the project is connecting the different application layers.
 
 ```text
-Browser
-   │
-   ▼
-React Application
+┌───────────────────────────────┐
+│          Frontend             │
+│                               │
+│ Products → Cart → Checkout    │
+└───────────────┬───────────────┘
+                │
+                │ HTTP / API
+                ▼
+┌───────────────────────────────┐
+│          Express.js           │
+│            Backend            │
+│                               │
+│ Cart / Transaction / Orders   │
+└───────────────┬───────────────┘
+                │
+          ┌─────┴─────┐
+          │           │
+          ▼           ▼
+    ┌──────────┐ ┌──────────┐
+    │ MongoDB  │ │  Stripe  │
+    └──────────┘ └──────────┘
 ```
 
-### 2. Customer Initiates Payment
+This separation keeps the responsibilities of each component well defined.
 
-The user interacts with the payment interface and initiates a transaction.
+---
+
+# 🔐 Payment Security
+
+Payment processing involves sensitive information and therefore requires secure handling.
+
+The application delegates payment processing to **Stripe**, rather than implementing payment-card processing logic directly.
+
+Sensitive Stripe credentials should never be exposed in frontend code.
+
+For example:
 
 ```text
-User
-  │
-  ▼
-Payment Interface
-  │
-  ▼
-Start Payment
+❌ Do not expose:
+Stripe Secret Key
+Database Credentials
+Private API Credentials
 ```
 
-### 3. Payment Request
+These should remain server-side and be stored using environment variables.
 
-The frontend can communicate with the payment service through HTTP requests.
+Example:
 
-Axios is included in the project for this communication.
-
-```text
-React
-  │
-  ▼
-Axios
-  │
-  ▼
-Payment Service / Stripe Flow
+```env
+STRIPE_SECRET_KEY=your_secret_key
+MONGODB_URI=your_mongodb_connection_string
 ```
 
-### 4. Stripe Processing
+> Never commit real credentials, API keys, database passwords, or secret keys to GitHub.
 
-Stripe handles the payment processing flow.
+---
 
-```text
-Payment Request
-       │
-       ▼
-     Stripe
-       │
-   ┌───┴────┐
-   │        │
-Success   Failure
-```
+# 🧩 Technology Stack
 
-### 5. Result Handling
+## Frontend
 
-The application can use the returned transaction state to provide appropriate feedback to the user.
+- **HTML**
+- **CSS**
+- **JavaScript**
 
-```text
-Stripe Response
-      │
-      ▼
-Frontend
-      │
- ┌────┴─────┐
- │          │
- ▼          ▼
-Success    Error
-```
+The frontend provides:
+
+- Product listing
+- Product filtering
+- Cart interface
+- Checkout interface
+
+## Backend
+
+- **Node.js**
+- **Express.js**
+
+Used for:
+
+- REST APIs
+- Cart management
+- Transaction handling
+- Order processing
+- Stripe communication
+- Database communication
+
+## Database
+
+- **MongoDB**
+
+Used for:
+
+- Customer details
+- Product information
+- Cart data
+- Order history
+
+## Payment
+
+- **Stripe**
+
+Used for:
+
+- Online payment processing
+- Transaction handling
+- Payment status management
 
 ---
 
 # 📂 Project Structure
 
-The current repository follows a standard Vite + React project structure:
+A logical organization of the complete application is:
 
 ```text
 Payment-Gateway/
 │
-├── .eslintrc.cjs
-├── .gitignore
-├── README.md
-├── index.html
+├── frontend/
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   ├── components/
+│   ├── products/
+│   ├── cart/
+│   └── checkout/
+│
+├── backend/
+│   ├── server.js
+│   ├── routes/
+│   │   ├── cart.js
+│   │   ├── payment.js
+│   │   └── order.js
+│   │
+│   ├── controllers/
+│   ├── models/
+│   │   ├── Customer.js
+│   │   ├── Product.js
+│   │   └── Order.js
+│   │
+│   └── config/
+│
 ├── package.json
 ├── package-lock.json
-└── vite.config.js
+└── README.md
 ```
 
-The repository's `index.html` is configured to load the React entry point through:
-
-```html
-<script type="module" src="/src/main.jsx"></script>
-```
-
-and the Vite configuration enables the official React plugin.
-
----
-
-# 📄 File Descriptions
-
-### `package.json`
-
-Defines:
-
-- Project metadata
-- Development scripts
-- Runtime dependencies
-- Development dependencies
-
-Available scripts include:
-
-```bash
-npm run dev
-npm run build
-npm run lint
-npm run preview
-```
-
-
----
-
-### `vite.config.js`
-
-Configures Vite and enables the React plugin:
-
-```javascript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-})
-```
-
-
----
-
-### `index.html`
-
-Acts as the main HTML entry point and mounts the React application through the root element:
-
-```html
-<div id="root"></div>
-```
-
-The React entry module is loaded using:
-
-```html
-<script type="module" src="/src/main.jsx"></script>
-```
-
+> The exact source-tree organization may vary depending on how the e-commerce frontend and backend were maintained.
 
 ---
 
@@ -318,11 +566,12 @@ The React entry module is loaded using:
 
 Make sure the following are installed:
 
-- **Node.js**
-- **npm**
-- A valid **Stripe account** for payment integration/testing
+- Node.js
+- npm
+- MongoDB or MongoDB Atlas
+- Stripe account
 
-Check your installed versions:
+Check Node.js and npm:
 
 ```bash
 node --version
@@ -333,251 +582,288 @@ npm --version
 
 # 📥 Installation
 
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/ARPIT-27-PANDEY/Payment-Gateway.git
 ```
 
-### 2. Navigate to the project directory
+Navigate into the project:
 
 ```bash
 cd Payment-Gateway
 ```
 
-### 3. Install dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-The project dependencies are managed through `package.json` and `package-lock.json`.
+---
+
+# ⚙️ Environment Configuration
+
+Create a `.env` file for server-side configuration.
+
+Example:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+
+Do not upload the `.env` file to GitHub.
+
+Add it to `.gitignore`:
+
+```gitignore
+.env
+node_modules/
+```
 
 ---
 
 # ▶️ Running the Application
 
-Start the Vite development server:
+Start the backend server:
+
+```bash
+npm start
+```
+
+Start the frontend according to the frontend project configuration.
+
+For a Vite-based frontend, the development command is:
 
 ```bash
 npm run dev
 ```
 
-Vite will start the development server and provide a local URL in the terminal.
-
-Open the displayed URL in your browser.
+The frontend communicates with the Express.js backend through HTTP APIs.
 
 ---
 
-# 🏭 Production Build
+# 🧪 Stripe Testing
 
-To generate a production-ready build:
+Stripe provides a test environment for development.
 
-```bash
-npm run build
-```
-
-The generated production assets are written to the Vite build output directory.
-
-To preview the production build locally:
-
-```bash
-npm run preview
-```
-
-These scripts are defined directly in the project's `package.json`.
-
----
-
-# 🧹 Linting
-
-The repository includes ESLint for maintaining code quality.
-
-Run:
-
-```bash
-npm run lint
-```
-
-The configured lint command checks JavaScript and JSX files and treats warnings as errors.
-
----
-
-# 🔐 Security Considerations
-
-Payment applications must handle credentials and transaction information carefully.
-
-### Never expose Stripe secret keys
-
-A Stripe secret key must **not** be:
-
-- Hard-coded in React components
-- Committed to GitHub
-- Stored in publicly accessible frontend code
-- Embedded directly into browser-side JavaScript
-
-Instead, sensitive Stripe operations should be handled by a secure server-side component.
-
-### Recommended architecture for production
+The recommended development flow is:
 
 ```text
-                  Browser
-                     │
-                     ▼
-              React Frontend
-                     │
-                     │ Public API Requests
-                     ▼
-              Secure Backend
-                     │
-                     │ Secret Key
-                     ▼
-                  Stripe
-```
-
-The React frontend should only contain information that is safe to expose publicly, such as a Stripe publishable key when required by the selected Stripe integration method.
-
----
-
-# 🧪 Testing
-
-For development and testing, use **Stripe test mode** rather than real payment processing.
-
-A typical testing workflow is:
-
-```text
-React Application
-       │
-       ▼
-Test Payment Request
-       │
-       ▼
+E-Commerce Checkout
+        │
+        ▼
 Stripe Test Environment
-       │
- ┌─────┴─────┐
- │           │
- ▼           ▼
-Success     Failure
+        │
+   ┌────┴────┐
+   │         │
+   ▼         ▼
+Success    Failure
 ```
 
-Always verify the result using the payment status returned by the integration rather than assuming that a submitted request implies a successful transaction.
+Use Stripe's official test credentials/cards when testing payment flows.
+
+Never use real customer payment information during development or testing.
 
 ---
 
-# 📡 HTTP Communication
+# 🧾 Order Management
 
-The project includes **Axios** as a dependency for making HTTP requests.
-
-A typical request pattern is:
-
-```javascript
-import axios from "axios";
-
-const response = await axios.post(
-  "/api/payment",
-  paymentData
-);
-```
-
-The exact endpoint and payload structure depend on the backend or Stripe integration being used by the application.
-
----
-
-# 🧩 Why Stripe?
-
-Stripe provides infrastructure for integrating online payments into web applications without having to implement the complete payment-processing ecosystem from scratch.
-
-In this project, Stripe serves as the payment-processing layer while React provides the customer-facing interface.
+After a successful transaction, the application can associate the payment with the corresponding order.
 
 ```text
-                Payment Application
-                       │
-          ┌────────────┴────────────┐
-          │                         │
-          ▼                         ▼
-     React Frontend            Stripe Gateway
-          │                         │
-          │                         │
-          └──────────┬──────────────┘
-                     │
-                     ▼
-              Payment Workflow
+Customer
+   │
+   ▼
+Cart
+   │
+   ▼
+Checkout
+   │
+   ▼
+Payment
+   │
+   ▼
+Payment Success
+   │
+   ▼
+Create Order
+   │
+   ▼
+Store in MongoDB
+```
+
+This connects payment processing with the actual e-commerce order lifecycle.
+
+---
+
+# 🔄 Complete End-to-End Workflow
+
+```text
+                          USER
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Browse Products │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Filter Products │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   Add to Cart   │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │     Checkout    │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   Express.js    │
+                  │      API        │
+                  └───────┬─┬───────┘
+                          │ │
+              ┌───────────┘ └────────────┐
+              │                          │
+              ▼                          ▼
+       ┌─────────────┐            ┌─────────────┐
+       │   Stripe    │            │   MongoDB   │
+       │   Gateway   │            │             │
+       │             │            │ Customers   │
+       │ Transaction │            │ Products    │
+       │ Processing  │            │ Orders      │
+       └──────┬──────┘            └─────────────┘
+              │
+              ▼
+       Payment Status
+              │
+        ┌─────┴─────┐
+        │           │
+        ▼           ▼
+    Successful    Failed
+        │           │
+        ▼           ▼
+   Order Created   Error
+        │
+        ▼
+     MongoDB
 ```
 
 ---
 
-# 🌐 Use Cases
+# 📊 Project Highlights
 
-The same architecture can be adapted for:
+### Full-Stack E-Commerce Development
 
-- E-commerce applications
-- Subscription-based applications
-- Donation platforms
-- SaaS products
-- Digital product stores
-- Event registration systems
-- Service booking applications
+Built a basic e-commerce application with:
 
----
-
-# 📈 Project Highlights
-
-### Frontend Development
-
-Built a React-based payment interface using a modern Vite development environment.
+- Product filtering
+- Shopping cart
+- Checkout workflow
 
 ### Payment Gateway Integration
 
-Integrated the application with **Stripe** to support an online payment workflow.
+Integrated **Stripe Gateway** into the e-commerce checkout flow for online transaction processing.
 
-### API Communication
+### Backend API Development
 
-Used **Axios** for HTTP communication between the frontend and payment-related services.
+Developed **Express.js APIs** for:
 
-### Development Workflow
+- Cart handling
+- Transaction processing
+- Order-related operations
 
-Configured Vite for fast development and production builds and ESLint for maintaining code quality.
+### Database Management
+
+Used **MongoDB** to manage:
+
+- Customer details
+- Product information
+- Order history
+
+### System Integration
+
+Connected the:
+
+```text
+Frontend
+   +
+Express.js Backend
+   +
+MongoDB
+   +
+Stripe
+```
+
+into an integrated e-commerce transaction workflow.
 
 ---
 
-# 🛠️ Available NPM Commands
+# 🧠 Key Learning Outcomes
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start development server |
-| `npm run build` | Create production build |
-| `npm run lint` | Run ESLint |
-| `npm run preview` | Preview production build |
+Through this project, the following concepts were explored:
 
-These commands correspond to the scripts currently defined in `package.json`.
+- Full-stack web application development
+- REST API development
+- E-commerce architecture
+- Shopping cart management
+- Checkout workflows
+- Payment gateway integration
+- Stripe payment processing
+- MongoDB database management
+- Backend transaction handling
+- Frontend-backend communication
+- Secure handling of payment credentials
 
 ---
 
 # 🔮 Future Improvements
 
-Potential extensions for the project include:
+The project can be extended with:
 
-- Add a dedicated backend for secure Stripe operations.
-- Add Stripe Checkout or Stripe Elements depending on the desired payment flow.
-- Implement server-side payment verification.
-- Add webhook handling for payment events.
-- Add transaction history and payment-status tracking.
-- Add authentication and user accounts.
-- Add order/invoice management.
-- Add a persistent database for transaction records.
-- Add automated tests for payment flows.
-- Containerize the application using Docker.
-- Deploy the frontend and backend to a cloud platform.
+- User authentication and authorization
+- JWT-based authentication
+- Product administration dashboard
+- Inventory management
+- Order tracking
+- Payment webhook handling
+- Transaction verification
+- Refund management
+- Coupon and discount systems
+- Product reviews and ratings
+- Email notifications
+- Payment and order analytics
+- Dockerized deployment
+- Cloud deployment
 
 ---
 
-# ⚠️ Disclaimer
+# ⚠️ Security Disclaimer
 
-This project is intended for **learning, development, and demonstration purposes**.
+This project is intended for **educational and development purposes**.
 
-For a production payment system, additional security, validation, authentication, server-side verification, monitoring, logging, fraud prevention, and compliance requirements should be implemented.
+A production-grade payment system requires additional measures such as:
 
-Do not use real customer payment information in a development environment.
+- Server-side payment verification
+- Webhook validation
+- Authentication and authorization
+- Input validation
+- Rate limiting
+- Secure credential management
+- Database security
+- Fraud detection
+- Logging and monitoring
+- Proper error handling
+- Compliance with applicable payment and data-security requirements
+
+Never commit Stripe secret keys or other sensitive credentials to the repository.
 
 ---
 
@@ -595,7 +881,6 @@ https://github.com/ARPIT-27-PANDEY
 
 # 🔗 Repository
 
-**GitHub:**  
 https://github.com/ARPIT-27-PANDEY/Payment-Gateway
 
 ---
@@ -603,31 +888,23 @@ https://github.com/ARPIT-27-PANDEY/Payment-Gateway
 # ⭐ Project Summary
 
 ```text
-                    ┌──────────────────┐
-                    │      User        │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │  React Frontend  │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │      Axios       │
-                    │ HTTP Requests    │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │ Stripe Payment   │
-                    │     Gateway      │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │ Payment Result   │
-                    └──────────────────┘
+                  FULL-STACK E-COMMERCE
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+             ▼                           ▼
+       E-Commerce UI                Express.js
+             │                           │
+      ┌──────┼──────┐            ┌──────┴──────┐
+      │      │      │            │             │
+      ▼      ▼      ▼            ▼             ▼
+   Product  Cart  Checkout     MongoDB      Stripe
+                                  │             │
+                                  │             │
+                                  └──────┬──────┘
+                                         ▼
+                                  Order / Payment
+                                      Workflow
 ```
 
-**Built with React + Vite and integrated with Stripe for an online payment workflow.**
+**Built a complete e-commerce workflow with product filtering, cart and checkout functionality, Express.js backend APIs, MongoDB data management, and Stripe-based online payment processing.**
